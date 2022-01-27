@@ -47,8 +47,11 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
 fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
     %s/\s\+$//e
     :silent! %s#\($\n\s*\)\+\%$##
+    call cursor(l, c)
 endfun
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
