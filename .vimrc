@@ -55,3 +55,22 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+" My mappings
+
+let mapleader = ","
+
+" Fast ESC on keyboard
+inoremap jk <esc>l
+
+" Open & edit .vimrc on fly
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Uppercase after typing support
+inoremap <leader>u <esc>viwU/\><cr>a
+nnoremap <leader>u viwU/\><cr>
+
+" Inserting a new line (*) at the beginning (*) go back to nmode after
+inoremap <leader>gg <esc>ggi<cr><esc>ki
+nnoremap OO O<esc>j
