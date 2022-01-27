@@ -1,4 +1,4 @@
-map ^[0A ^[ka
+map ^[OA ^[ka
 map ^[OB ^[ja
 map ^[OC ^[la
 map ^[OD ^[ha
