@@ -77,6 +77,11 @@ nnoremap <leader>u viwU/\><cr>
 inoremap <leader>gg <esc>ggi<cr><esc>ki
 nnoremap OO O<esc>j
 
+" Commenting a line
+autocmd FileType c,cpp nnoremap <localleader>c I//<esc>
+autocmd FileType python nnoremap <localleader>c I#<esc>
+autocmd FileType haskell nnoremap <localleader>c I--<esc>
+
 " Map to unicode symbols in Haskell
 autocmd FileType haskell inoremap <buffer> :: ∷
 autocmd FileType haskell inoremap <buffer> inoremap rrr →
