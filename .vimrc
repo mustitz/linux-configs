@@ -56,6 +56,8 @@ endfun
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+autocmd BufRead,BufNewFile *.h set filetype=c
+
 " My mappings
 
 let mapleader = ","
