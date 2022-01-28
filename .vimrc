@@ -74,3 +74,9 @@ nnoremap <leader>u viwU/\><cr>
 " Inserting a new line (*) at the beginning (*) go back to nmode after
 inoremap <leader>gg <esc>ggi<cr><esc>ki
 nnoremap OO O<esc>j
+
+" Map to unicode symbols in Haskell
+autocmd FileType haskell inoremap <buffer> :: ∷
+autocmd FileType haskell inoremap <buffer> inoremap rrr →
+autocmd FileType haskell inoremap <buffer> inoremap lll ←
+autocmd FileType haskell inoremap <buffer> inoremap rrrr ⇒
