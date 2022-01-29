@@ -54,9 +54,10 @@ fun! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-autocmd BufRead,BufNewFile *.h set filetype=c
+augroup mustitz_helpers
+    autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+    autocmd BufRead,BufNewFile *.h set filetype=c
+augroup END
 
 " My mappings
 
