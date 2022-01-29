@@ -77,6 +77,7 @@ nnoremap <leader>u viwU/\><cr>
 " Inserting a new line (*) at the beginning (*) go back to nmode after
 inoremap <leader>gg <esc>ggi<cr><esc>ki
 nnoremap OO O<esc>j
+nnoremap oo o<esc>
 
 " Commenting a line
 autocmd FileType c,cpp nnoremap <localleader>c I//<esc>
