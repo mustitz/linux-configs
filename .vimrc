@@ -109,10 +109,10 @@ autocmd FileType haskell nnoremap <localleader>c I--<esc>
 
 " Haskell group --------------------------- {{{
 " Map to unicode symbols in Haskell
-autocmd FileType haskell inoremap <buffer> :: ∷
-autocmd FileType haskell inoremap <buffer> inoremap rrr →
-autocmd FileType haskell inoremap <buffer> inoremap lll ←
-autocmd FileType haskell inoremap <buffer> inoremap rrrr ⇒
+autocmd FileType haskell iabbrev <buffer> :: ∷
+autocmd FileType haskell iabbrev <buffer> r- →
+autocmd FileType haskell iabbrev <buffer> l- ←
+autocmd FileType haskell iabbrev <buffer> r= ⇒
 " }}}
 
 " Vimscript file settings -------------------------- {{{
