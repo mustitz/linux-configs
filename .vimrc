@@ -11,8 +11,17 @@ set expandtab
 set smartindent
 set number
 
-set statusline=%f%r\ \ char\ %3.3b\ \ encoding\ %{&encoding}\ \ %=\ \ %l:%c\ %P\ \ \
 set laststatus=2
+set statusline=
+set statusline+=%f                        " File name
+set statusline+=\ %r                      " Readonly flag
+set statusline+=\ \ char\ 0x%-4.4B        " Character hex code
+set statusline+=\ encoding\ %{&encoding}  " Buffer encoding
+set statusline+=%=                        " Wrap line
+set statusline+=FileType:\ %y             " Buffer type
+set statusline+=\ \ Total\ lines:\ %-6L   " Total line count
+set statusline+=\ %5P                     " Position in persent
+set statusline+=\ %6l:%-3c                " Current position
 
 set nocompatible
 set ruler
