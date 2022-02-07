@@ -24,7 +24,8 @@ set showmatch
 " Status line settings -------------------- {{{
 set laststatus=2
 set statusline=
-set statusline+=%f                        " File name
+set statusline+=%{g:custom_config_status} " Local config status
+set statusline+=\ %f                      " File name
 set statusline+=\ %r                      " Readonly flag
 set statusline+=\ \ char\ 0x%-4.4B        " Character hex code
 set statusline+=\ encoding\ %{&encoding}  " Buffer encoding
@@ -61,7 +62,7 @@ filetype plugin on
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
-" Kill unnessesay spaces ------------------ {{{
+" Kill unnessesary spaces ----------------- {{{
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -120,4 +121,36 @@ augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
+" }}}
+
+" Local configuration files------------------------- {{{
+fun! <SID>LoadCustomVimRC()
+
+  fun! <SID>RecusiveLoadCustomVimRC(local_path)
+    if a:local_path ==# '/'
+      return ''
+    endif
+    let l:local_vimrc = a:local_path . '.vimrc'
+    if l:local_vimrc ==# $MYVIMRC
+      return ''
+    endif
+    if filereadable(l:local_vimrc)
+      execute('source ' . l:local_vimrc)
+      return l:local_vimrc
+    endif
+    let l:top_dir = simplify(a:local_path . '/../')
+    return <SID>RecusiveLoadCustomVimRC(l:top_dir)
+  endfun
+
+  let l:local_path = fnamemodify('.', ':p')
+  let l:fname = <SID>RecusiveLoadCustomVimRC(l:local_path)
+  if strlen(l:fname) ==# 0
+    let g:custom_config_status = "-cfg-"
+  else
+    let g:custom_config_status = "+cfg+"
+  endif
+  return l:fname
+endfun
+
+let g:custom_config_fname = <SID>LoadCustomVimRC()
 " }}}
