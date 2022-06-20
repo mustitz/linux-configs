@@ -37,7 +37,8 @@ set statusline+=\ %6l:%-3c                " Current position
 " }}}
 
 syntax on
-filetype plugin on
+filetype on
+filetype plugin indent on
 
 nmap <F2> :w<CR>
 vmap <F2> <ESC>:w<CR>
