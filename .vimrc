@@ -79,6 +79,10 @@ augroup END
 " }}}
 
 " My personal preferences ----------------- {{{
+
+set list
+set listchars=tab:>-
+
 let mapleader = ","
 let maplocalleader = "\\"
 
