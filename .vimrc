@@ -27,13 +27,11 @@ set statusline=
 set statusline+=%{g:custom_config_status} " Local config status
 set statusline+=\ %f                      " File name
 set statusline+=\ %r                      " Readonly flag
-set statusline+=\ \ char\ 0x%-4.4B        " Character hex code
-set statusline+=\ encoding\ %{&encoding}  " Buffer encoding
 set statusline+=%=                        " Wrap line
-set statusline+=FileType:\ %y             " Buffer type
-set statusline+=\ \ Total\ lines:\ %-6L   " Total line count
-set statusline+=\ %5P                     " Position in persent
-set statusline+=\ %6l:%-3c                " Current position
+set statusline+=\ \ ch\ 0x%04.4B          " Character hex code
+set statusline+=\ %y                      " Buffer type
+set statusline+=\ %{&encoding}            " Buffer encoding
+set statusline+=\ %l:%c                   " Current position
 " }}}
 
 syntax on
