@@ -38,13 +38,22 @@ syntax on
 filetype on
 filetype plugin indent on
 
+filetype plugin on
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+
+" Shortcust ------------------------------- {{{
 nmap <F2> :w<CR>
 vmap <F2> <ESC>:w<CR>
 imap <F2> <ESC>:w<CR>
 
-nmap <F6> gt
-vmap <F6> <ESC>gt<CR>
-imap <F6> <ESC>gt<CR>
+nmap <F6> :set hlsearch!<CR>
+vmap <F6> <ESC>:set hlsearch!<CR>
+imap <F6> <ESC>:set hlsearch!<CR>i
+
+nmap <F7> :set paste!<CR>
+vmap <F7> <ESC>:set paste!<CR>
+imap <F7> <ESC>:set paste!<CR>i
 
 nmap <F9> :make<CR>
 vmap <F9> <ESC>:make<CR>
@@ -56,10 +65,7 @@ imap <F12> <ESC>:cnext<CR>
 
 vmap < <gv
 vmap > >gv
-
-filetype plugin on
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
+" }}}
 
 " Kill unnessesary spaces ----------------- {{{
 fun! <SID>StripTrailingWhitespaces()
