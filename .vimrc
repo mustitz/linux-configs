@@ -139,7 +139,7 @@ fun! <SID>LoadCustomVimRC()
     if a:local_path ==# '/'
       return ''
     endif
-    let l:local_vimrc = a:local_path . '.vimrc'
+    let l:local_vimrc = a:local_path . '.local.vimrc'
     if l:local_vimrc ==# $MYVIMRC
       return ''
     endif
