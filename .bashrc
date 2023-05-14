@@ -33,6 +33,6 @@ function set-title(){
 # Some alisases
 alias diff='colordiff -u'
 alias gdb='gdb -q'
-alias gitlog='git log --oneline -n13'
+alias gitlog='git --no-pager log --oneline -n13'
 
 . $HOME/projects/linux-configs/mustitz.sh
