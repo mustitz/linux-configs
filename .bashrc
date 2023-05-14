@@ -1,3 +1,7 @@
+###
+### Mustitz settings
+###
+
 # Some more ls aliases
 # This is standard Ubuntu config configuration
 # I like to see human readable file sizes like 11M not 10874560
@@ -31,6 +35,4 @@ alias diff='colordiff -u'
 alias gdb='gdb -q'
 alias gitlog='git log --oneline -n13'
 
-# Python virtual environments looks like this:
-alias venv-py3.6="source $HOME/.venv-py3.6/bin/activate"
-alias venv="venv-py3.6"
+. $HOME/projects/linux-configs/mustitz.sh
