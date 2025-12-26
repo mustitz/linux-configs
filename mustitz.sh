@@ -1,3 +1,6 @@
+# Get the directory where this script is located
+MUSTITZ_CONFIG_DIR=$(dirname "${BASH_SOURCE[0]}")
+
 if [ -z "$MUSTITZ_PYVENV_DIR" ]; then
     export MUSTITZ_PYVENV_DIR="$HOME/venv"
 fi
@@ -39,4 +42,18 @@ my () {
             echo "Unknown command"
             ;;
     esac
+}
+
+# Change environment: projects and python venvs
+chenv() {
+    if [ -f "$HOME/.chenv.sh" ]; then
+        rm "$HOME/.chenv.sh"
+    fi
+
+    python3 "$MUSTITZ_CONFIG_DIR/chenv.py" "$@"
+
+    if [ -f "$HOME/.chenv.sh" ]; then
+        source "$HOME/.chenv.sh"
+        rm "$HOME/.chenv.sh"
+    fi
 }
