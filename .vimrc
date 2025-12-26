@@ -59,6 +59,8 @@ nmap <F2> :w<CR>
 vmap <F2> <ESC>:w<CR>
 imap <F2> <ESC>:w<CR>
 
+nnoremap <silent> <F3> :let @/='\<'.expand('<cword>').'\>'<CR>:set hlsearch<CR>
+
 nmap <F6> :set hlsearch!<CR>
 vmap <F6> <ESC>:set hlsearch!<CR>
 imap <F6> <ESC>:set hlsearch!<CR>i
