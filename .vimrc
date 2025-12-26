@@ -43,6 +43,18 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
 " Shortcust ------------------------------- {{{
+
+" General function to run a checker based on filetype
+function! RunChecker()
+    if &filetype == 'python'
+        Pylint
+    elseif &filetype == 'c'
+        make
+    else
+        echo "No checker configured for filetype: " . &filetype
+    endif
+endfunction
+
 nmap <F2> :w<CR>
 vmap <F2> <ESC>:w<CR>
 imap <F2> <ESC>:w<CR>
@@ -54,6 +66,10 @@ imap <F6> <ESC>:set hlsearch!<CR>i
 nmap <F7> :set paste!<CR>
 vmap <F7> <ESC>:set paste!<CR>
 imap <F7> <ESC>:set paste!<CR>i
+
+nmap <F8> :call RunChecker()<CR>
+vmap <F8> <ESC>:call RunChecker()<CR>
+imap <F8> <ESC>:call RunChecker()<CR>
 
 nmap <F9> :make<CR>
 vmap <F9> <ESC>:make<CR>
@@ -123,6 +139,47 @@ autocmd FileType haskell iabbrev <buffer> :: ∷
 autocmd FileType haskell iabbrev <buffer> r- →
 autocmd FileType haskell iabbrev <buffer> l- ←
 autocmd FileType haskell iabbrev <buffer> r= ⇒
+" }}}
+
+" Python group --------------------------- {{{
+
+function! RunPylint()
+    let l:current_file = expand('%:p')
+    if empty(l:current_file)
+        echo "No file to lint"
+        return
+    endif
+
+    " Run pylint and capture output
+    let l:command = 'pylint --output-format=text ' . shellescape(l:current_file)
+    let l:results = system(l:command)
+
+    " Split results by lines
+    let l:parsed_results = split(l:results, "\n")
+
+    " Filter and format pylint output to add to quickfix list
+    let l:qflist = map(filter(l:parsed_results, 'v:val =~# "^[^ ]\\+:[0-9]\\+:[0-9]\\+:"'),
+                \ '{
+                \ "filename": get(split(v:val, ":"), 0),
+                \ "lnum": str2nr(get(split(v:val, ":"), 1)),
+                \ "col": str2nr(get(split(v:val, ":"), 2)),
+                \ "text": join(split(v:val, ":")[3:], ":")
+                \ }')
+
+    " Add results to quickfix list
+    call setqflist(l:qflist)
+
+    " Open quickfix window if there are any results
+    if len(l:qflist) > 0
+        copen
+    else
+        echo "No issues found. Your code is clean!"
+    endif
+endfunction
+
+" Command to execute the function
+command! Pylint :call RunPylint()
+
 " }}}
 
 " Vimscript file settings -------------------------- {{{
