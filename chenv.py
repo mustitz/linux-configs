@@ -2,13 +2,24 @@
 
 from argparse import ArgumentParser
 from pathlib import Path
+from collections import namedtuple
 
 from utils import print_table, print_separator
 
 SOURCED_SH = Path.home() / '.chenv.sh'
 VENV_DIR = Path.home() / 'venv'
+PROJECTS_DIR = Path.home() / 'projects'
 
 _sources = []
+
+def extra(**kwargs):
+    return kwargs
+
+Project = namedtuple('Project', ['name', 'dn', 'extra'])
+
+PROJECTS = [
+    Project('wsxedc', PROJECTS_DIR / 'wsxedc', extra(pyenv='wsxedc')),
+]
 
 def _source(line):
     _sources.append(line)
@@ -48,6 +59,31 @@ def py_set_venv(name):
         return py_list_venvs()
     _source(f"source {VENV_DIR}/{name}/bin/activate")
 
+def prj_list():
+    names = [prj.name for prj in PROJECTS]
+    dirs = [str(prj.dn) for prj in PROJECTS]
+    print()
+    print_table(('Name', 'Path'), names, dirs, indent=4)
+    print()
+
+def prj_set_env(prj_name):
+    if prj_name is None:
+        return prj_list()
+
+    prj = None
+    for item in PROJECTS:
+        if item.name == prj_name:
+            prj = item
+            break
+
+    if prj is None:
+        print(f"Project {prj_name} is not found")
+        return
+
+    _source(f"cd {prj.dn}")
+    if prj.extra and 'pyenv' in prj.extra:
+        py_set_venv(prj.extra['pyenv'])
+
 def main():
     parser = ArgumentParser(description="Change environment helper")
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
@@ -55,10 +91,16 @@ def main():
     py_parser = subparsers.add_parser('py', help='Switch to python venv')
     py_parser.add_argument('name', nargs='?', help='Optional python venv name')
 
+    prj_parser = subparsers.add_parser('prj', help='Switch to project')
+    prj_parser.add_argument('name', nargs='?', help='Optional project name')
+
     args = parser.parse_args()
 
     if args.command == 'py':
         return py_set_venv(args.name)
+
+    if args.command == 'prj':
+        return prj_set_env(args.name)
 
     parser.print_help()
 
